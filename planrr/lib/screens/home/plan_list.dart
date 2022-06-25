@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:planrr/models/plan.dart';
+import 'package:planrr/screens/home/plan_tile.dart';
 
 class PlanList extends StatefulWidget {
 
@@ -18,8 +19,11 @@ class _PlanListState extends State<PlanList> {
       print(plan.date);
       print(plan.uid);
     });
-    return Container(
-      
+    return ListView.builder(
+      itemCount: plans.length,
+      itemBuilder: (context, index){
+        return PlanTile(plan: plans[index]);
+      },
     );
   }
 }
