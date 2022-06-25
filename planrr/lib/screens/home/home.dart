@@ -4,6 +4,7 @@ import 'package:planrr/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:planrr/screens/home/plan_list.dart';
 import 'package:planrr/models/plan.dart';
+import 'package:planrr/screens/home/sidemenu.dart';
 
 class Home extends StatelessWidget{
 
@@ -15,20 +16,11 @@ class Home extends StatelessWidget{
       value: DatabaseService().plans,
       initialData: null,
       child: Scaffold(
+      drawer: NavDrawer(), 
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Planrr'),
         backgroundColor: Colors.blue,
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.logout),
-            label: Text('logout'),
-            textColor: Colors.white,
-            onPressed: () async{
-              await _auth.signOut();
-            },
-          )
-        ],
       ),
       body: PlanList(),
       floatingActionButton: FloatingActionButton(
