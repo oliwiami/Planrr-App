@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605887565988",
+    "project_id": "planrr-c1edb",
+    "storage_bucket": "planrr-c1edb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605887565988:android:e20bc74e9f2b440faf9631",
+        "android_client_info": {
+          "package_name": "com.example.planrr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605887565988-ovdjpe0a8oljucua6to4pshv7vi737fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm43RKo1f4be-Fm--VuYlHNrKnF9b9yqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605887565988-ovdjpe0a8oljucua6to4pshv7vi737fj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
