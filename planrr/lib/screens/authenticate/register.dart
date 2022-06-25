@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:planrr/shared/constants.dart';
 
 import '../../services/auth.dart';
+import '../../shared/loading.dart';
 
 class Register extends StatefulWidget {
 
@@ -15,6 +17,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
   
   //text field state
   String email ='';
@@ -23,7 +26,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -47,6 +50,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val!.isEmpty ? 'Enter an email':null,
                 onChanged: (val){
                   setState(() => email=val);
@@ -54,6 +58,7 @@ class _RegisterState extends State<Register> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Password'),
                   obscureText: true,
                   validator: (val) => val!.length < 6 ? 'Enter a password at least 6 characters long':null,
                   onChanged: (val){
@@ -67,9 +72,13 @@ class _RegisterState extends State<Register> {
                     style: TextStyle(color: Colors.white)),
                   onPressed: () async{
                     if(_formKey.currentState!.validate()){
-                      dynamic result = await _authService.register(email, password);
+                      setState(() => loading = true);
+                      dynamic result = await _authService.registerWithEmailAndPassword(email, password);
                       if(result == null){
-                        setState(() => error ='please supply a valid email');
+                        setState(() { 
+                          error ='please supply a valid email';
+                          loading = false;
+                        });
                       }
                     }
                   },
