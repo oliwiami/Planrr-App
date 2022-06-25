@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planrr/screens/settings/settings.dart';
 import 'package:planrr/services/auth.dart';
 
 
@@ -31,7 +32,12 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
-            onTap: () => {Navigator.pop(context)}
+            onTap: () => {Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Settings())
+            )
+
+            }
           ),         
         ],
       ),
