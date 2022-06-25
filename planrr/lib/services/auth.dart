@@ -5,7 +5,7 @@ import 'package:planrr/services/database.dart';
 class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  //final String? planid = 'first1';
+  //final String? planid = 'second2';
 
   MyUser? _userFromDatabase(User? user){
     return user != null ? MyUser(uid: user.uid) : null;
@@ -48,7 +48,7 @@ Future signInWithEmailAndPassword(String email, String password) async {
       User? user = result.user;
 
       //create a first dummy plan for a new user
-      //await DatabaseService(planid: planid).createPlan('first plan','description 1',DateTime.now(), user!.uid);
+      //await DatabaseService(planid: planid).createPlan('second plan','description 2',DateTime.now(), user!.uid);
       return _userFromDatabase(user);
     }catch(e){
       print(e.toString());

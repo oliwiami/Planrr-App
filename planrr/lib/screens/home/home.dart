@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:planrr/services/auth.dart';
+import 'package:planrr/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:planrr/screens/home/plan_list.dart';
+import 'package:planrr/models/plan.dart';
 
 class Home extends StatelessWidget{
 
@@ -7,7 +11,10 @@ class Home extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamProvider<List<Plan>?>.value( 
+      value: DatabaseService().plans,
+      initialData: null,
+      child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Planrr'),
@@ -23,6 +30,7 @@ class Home extends StatelessWidget{
           )
         ],
       ),
+      body: PlanList(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         child: Icon(Icons.add),
@@ -30,6 +38,7 @@ class Home extends StatelessWidget{
           print('clicked the button');
         },
       ),
+    )
     );
   }
 
