@@ -23,6 +23,13 @@ class Home extends StatelessWidget{
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add),
+        onPressed: (){
+          print('clicked the button');
+        },
+      ),
     );
   }
 
