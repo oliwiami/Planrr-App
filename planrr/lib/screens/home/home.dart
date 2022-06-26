@@ -9,12 +9,14 @@ import 'package:planrr/screens/home/plan_list.dart';
 import 'package:planrr/models/plan.dart';
 import 'package:planrr/screens/home/sidemenu.dart';
 import 'package:planrr/services/auth.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Home extends StatelessWidget{
 
   final AuthService _auth = AuthService();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _descController = TextEditingController();
+  DateTime dateTime = DateTime.now();
 
   
   @override
@@ -69,6 +71,21 @@ class Home extends StatelessWidget{
                     },
                     controller: _descController,
                   ),
+                  TextButton(
+                    onPressed: () {
+                    DatePicker.showDateTimePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(2018, 3, 5),
+                              maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+                            print('change $date');
+                          }, onConfirm: (date) {
+                            dateTime = date.subtract(const Duration(hours: 2));
+                            print('confirm $date');
+                          }, currentTime: DateTime.now());
+                  },
+                  child: Icon(
+                  Icons.calendar_month_outlined
+                  )),
                 ],
               ),
             ),
@@ -81,7 +98,7 @@ class Home extends StatelessWidget{
                   child: Text('Add'),
                   onPressed: (){
                     if(_formKey.currentState!.validate()){
-                      _auth.addPlan( _titleController.text, _descController.text, DateTime.now());
+                      _auth.addPlan( _titleController.text, _descController.text, dateTime);
                     Navigator.pop(context);
                     _titleController.clear();
                     _descController.clear();
@@ -89,7 +106,6 @@ class Home extends StatelessWidget{
                     return;
                   },
                 ),
-                
             ],
             )
             ),
