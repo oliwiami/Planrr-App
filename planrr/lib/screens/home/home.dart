@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:planrr/screens/home/plan_list.dart';
 import 'package:planrr/models/plan.dart';
 import 'package:planrr/screens/home/sidemenu.dart';
-import 'package:planrr/services/auth.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Home extends StatelessWidget{

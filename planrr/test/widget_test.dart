@@ -8,23 +8,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:planrr/screens/wrapper.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:planrr/services/auth.dart';
+import 'package:provider/provider.dart';
+import 'package:planrr/models/my_user.dart';
+
 import 'package:planrr/main.dart';
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+void main() async{
+  test('Initialize app from firestore',()async{ 
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+});
+}
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return StreamProvider<MyUser?>.value(
+      value: AuthService().user,
+      initialData: null,
+      child: MaterialApp(
+      home: Wrapper(),
+      ),
+    );
+  }
 }

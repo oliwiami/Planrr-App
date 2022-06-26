@@ -68,13 +68,18 @@ Future signInWithEmailAndPassword(String email, String password) async {
   }
 
   //generate planid
-    //String uidStr = _auth.currentUser!.uid;
-    String planid = DateTime.now().toString();
+  String generateId(){
+    String planid = _auth.currentUser!.uid;
+    return planid;
+    }
 
   //create new plan
   Future addPlan(String title, String desc, DateTime date) async{
+    String planid = generateId() + date.toString();
     print(_auth.currentUser!.uid);
     return await DatabaseService(planid: planid).createPlan(title,desc,date, _auth.currentUser!.uid);
     
   }
+
+
 }

@@ -7,12 +7,13 @@ class DatabaseService{
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final String? planid;
+  String? planid;
   DatabaseService({this.planid});
+ // String plan_id;
 
   // collection reference
   final CollectionReference planCollection = FirebaseFirestore.instance.collection('plans');
-
+  final DocumentReference planDoc = FirebaseFirestore.instance.collection('plans').doc();
   
 
   //creating a new plan for a logged user
@@ -24,6 +25,12 @@ class DatabaseService{
       'uid':uid
   });
   }
+
+  //delete a selected plan
+  Future<void> deletePlan(plan_id){
+    return planCollection.doc(plan_id).delete();
+  }
+  
 
   //plan list from snapshot
   List<Plan> _planListFromSnapshot(QuerySnapshot snapshot){
@@ -68,4 +75,19 @@ class DatabaseService{
     print(_auth.currentUser!.uid);
     return planCollection.doc(planid).snapshots();
   }
+
+  //show id of a selected plan
+  Future<String> get_data(DocumentReference planDoc) async{
+    DocumentSnapshot docSnap = await planDoc.get();
+    var planDocId = docSnap.reference.id;
+    //print(planDocId);
+    return planDocId;
+  }
+
+  Future<String> getId() async{
+    String plan_id = await get_data(planDoc);
+    print(plan_id);
+    return plan_id;
+  }
+
 }

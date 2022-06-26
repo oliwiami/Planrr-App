@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planrr/models/plan.dart';
 import 'package:planrr/screens/home/home.dart';
-import 'package:planrr/shared/constants.dart';
+import 'package:planrr/services/database.dart';
 
 class PlanScreen extends StatelessWidget {
+
+    final FirebaseAuth _auth = FirebaseAuth.instance;
 
     final Plan plan;
     PlanScreen({required this.plan});
@@ -49,11 +52,13 @@ class PlanScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.delete),
         backgroundColor: Colors.red,
-        onPressed: () => { 
+        onPressed: () => {
+          DatabaseService().deletePlan(_auth.currentUser!.uid+plan.date.toString()),
           Navigator.push(
           context, 
            MaterialPageRoute(builder: ((context) =>  Home()))
            ),
+           //DatabaseService().showId()
         }
       ),
     );    
